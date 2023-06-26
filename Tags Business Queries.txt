@@ -1,0 +1,43 @@
+--- Which tag has the highest number of questions overall?
+SELECT
+    Tags,
+    Questions
+FROM DE_ASSIGNMENT.DEV.DIM_TAGS_CLEANSED
+ORDER BY Questions DESC
+LIMIT 1;
+
+
+---What is the top trending tags appearing in StackOverFlow this month?
+SELECT
+    Tags,
+    Asked_This_Month
+FROM DE_ASSIGNMENT.DEV.DIM_TAGS_CLEANSED
+ORDER BY Asked_This_Month DESC
+LIMIT 1;
+
+---Which tag has the highest percentage increase in the number of questions asked this year compared to the previous year?
+
+SELECT
+    Tags,
+    (Asked_This_Year - Asked_Previous_Year) / Asked_Previous_Year * 100 AS Percentage_Increase
+FROM DE_ASSIGNMENT.DEV.DIM_TAGS_CLEANSED
+ORDER BY Percentage_Increase DESC
+LIMIT 1;
+
+
+---How many questions were asked this year for the tags "api-v2" and "api-v2.2" combined?
+
+SELECT
+    SUM(Asked_This_Year) AS "Total Questions"
+FROM DE_ASSIGNMENT.DEV.DIM_TAGS_CLEANSED
+WHERE Tags IN ('api-v2', 'api-v2.2');
+
+
+---What are the tags associated with each number of questions asked this year?
+SELECT
+    Asked_This_Year AS "Number of Questions",
+    LISTAGG(Tags,', ') AS Tags
+FROM DE_ASSIGNMENT.DEV.DIM_TAGS_CLEANSED
+GROUP BY "Number of Questions"
+ORDER BY "Number of Questions" DESC;
+

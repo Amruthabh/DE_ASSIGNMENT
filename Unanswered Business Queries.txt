@@ -1,0 +1,55 @@
+---What are the top 5 questions with the highest number of votes?
+
+SELECT
+    Questions,
+    Votes,
+    Answers,
+    Views,
+    User_name,
+    DATE
+FROM DE_ASSIGNMENT.DEV.DIM_UNANSWERED_CLEANSED
+ORDER BY Votes DESC
+LIMIT 5;
+
+
+----Are there any questions with zero answers and high views?
+SELECT
+    Questions,
+    Votes,
+    Answers,
+    Views,
+    User_name,
+    Date
+FROM DE_ASSIGNMENT.DEV.DIM_UNANSWERED_CLEANSED
+WHERE Answers = 0 AND Views > 10000;
+
+
+---Which user asked most number of question
+SELECT
+    User_name,
+    COUNT(*) AS "Number of Question"
+FROM DE_ASSIGNMENT.DEV.DIM_UNANSWERED_CLEANSED
+GROUP BY User_name
+ORDER BY "Number of Question" DESC
+LIMIT 1;
+
+
+---Which date has the highest number of questions?
+
+SELECT
+    Date,
+    COUNT(*) AS "Question Count"
+FROM DE_ASSIGNMENT.DEV.DIM_UNANSWERED_CLEANSED
+GROUP BY Date
+ORDER BY "Question Count" DESC
+LIMIT 1;
+
+
+---How many questions have received a specific number of votes?
+SELECT
+    Date,
+    COUNT(*) AS "Number of Question"
+FROM DE_ASSIGNMENT.DEV.DIM_UNANSWERED_CLEANSED
+GROUP BY Date
+ORDER BY Date;
+

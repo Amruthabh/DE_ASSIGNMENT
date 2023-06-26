@@ -1,0 +1,67 @@
+-- What are the top 5 questions with the highest number of votes
+SELECT 
+    Questions,
+    Votes,
+    Answers,
+    Views,
+    User_name,
+    Date
+FROM DE_ASSIGNMENT.DEV.DIM_QUESTIONS_CLEANSED
+ORDER BY Votes DESC
+LIMIT 5;
+
+
+
+----Which question has the highest number of views?
+SELECT 
+    Questions,
+    Votes,
+    Answers,
+    Views,
+    User_name,
+    Date
+FROM DE_ASSIGNMENT.DEV.DIM_QUESTIONS_CLEANSED
+ORDER BY "VIEWS" DESC
+LIMIT 1;
+
+
+----What are the most recent questions asked?
+
+SELECT 
+    Questions,
+    Votes,
+    Answers,
+    Views,
+    User_name,
+    Date
+FROM DE_ASSIGNMENT.DEV.DIM_QUESTIONS_CLEANSED
+ORDER BY Date DESC
+LIMIT 1;
+
+
+
+--- How many questions were asked on each date?
+
+SELECT 
+    Date,
+    COUNT(*) AS "Number of Questions"
+FROM DE_ASSIGNMENT.DEV.DIM_QUESTIONS_CLEANSED
+GROUP BY DATE
+ORDER BY Date;
+
+
+---How many questions have received negative votes (less than 0)
+SELECT 
+    COUNT(*) AS "Negative Votes"
+FROM DE_ASSIGNMENT.DEV.DIM_QUESTIONS_CLEANSED
+WHERE Votes < 0;
+
+---Are there any questions with zero answers and high views?
+SELECT 
+    Questions,
+    Votes,
+    Answers,
+    Views
+FROM DE_ASSIGNMENT.DEV.DIM_QUESTIONS_CLEANSED
+WHERE Answers = 0
+    AND Views > 10000; -- We can adjust the threshold for "high views" as needed

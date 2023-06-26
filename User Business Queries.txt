@@ -1,0 +1,41 @@
+---Which user has the highest reputation score?
+
+SELECT
+  User_Name,
+  Reputation_Score
+FROM DE_ASSIGNMENT.DEV.DIM_USERS_CLEANSED
+ORDER BY Reputation_Score DESC
+LIMIT 1;
+
+
+---Which location has the highest number of users?
+SELECT
+  Location,
+  COUNT(*) AS User_Count
+FROM DE_ASSIGNMENT.DEV.DIM_USERS_CLEANSED
+WHERE LOCATION != 'Unknown'
+GROUP BY Location
+ORDER BY User_Count DESC
+LIMIT 1;
+
+----Which user has the highest number of gold badges?
+SELECT
+  User_Name,
+  Gold_Badges
+FROM DE_ASSIGNMENT.DEV.DIM_USERS_CLEANSED
+ORDER BY Gold_Badges DESC
+LIMIT 1;
+
+
+---How many users have at least one gold badge?
+SELECT COUNT(*) AS "Total Users With Gold Badges"
+FROM DE_ASSIGNMENT.DEV.DIM_USERS_CLEANSED
+WHERE Gold_Badges >= 1;
+
+
+----What is the total number of gold, silver, and bronze badges across all users?
+SELECT
+    SUM(Gold_Badges) AS TotalGoldBadges,
+    SUM(Silver_Badges) AS TotalSilverBadges,
+    SUM(Bronze_Badges) AS TotalBronzeBadges
+FROM DE_ASSIGNMENT.DEV.DIM_USERS_CLEANSED;
